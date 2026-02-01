@@ -8,7 +8,9 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "stop": "lsof -ti:4321 | xargs kill -9"
+
   },
   "dependencies": {
     "astro": "^5.2.0",

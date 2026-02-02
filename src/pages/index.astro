@@ -134,9 +134,12 @@ import Layout from '../layouts/Layout.astro';
           </svg>
         </button>
 
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Contact Us</h2>
+        <!-- Form View -->
+        <div id="form-view">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Contact Us</h2>
+          <p class="text-sm text-gray-500 mb-6">For product support: Free products use <a href="https://github.com/whizbangdevelopers-org" class="text-primary-600 hover:underline">GitHub Issues</a>, Premium use your CRM portal.</p>
 
-        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+          <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
           <input type="hidden" name="access_key" value="b0dcf2c5-ab02-4a4b-a64a-00655a6f31ef" />
           <input type="hidden" name="subject" value="New contact from whizBANG Developers" />
           <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
@@ -163,6 +166,19 @@ import Layout from '../layouts/Layout.astro';
             Submit
           </button>
         </form>
+        </div>
+
+        <!-- Success View -->
+        <div id="success-view" class="hidden text-center py-6">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">Thank You!</h2>
+          <p class="text-gray-600 mb-2">You're officially in the queue.</p>
+          <p class="text-gray-600">We'll assign someone to be your point of contact and get back to you soon.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -175,6 +191,9 @@ import Layout from '../layouts/Layout.astro';
     const navBtn = document.getElementById('contact-btn-nav');
     const footerBtn = document.getElementById('contact-btn-footer');
     const modalContent = modal.querySelector('.bg-white');
+    const form = modal.querySelector('form');
+    const formView = document.getElementById('form-view');
+    const successView = document.getElementById('success-view');
 
     function openModal() {
       modal.classList.remove('hidden');
@@ -184,6 +203,8 @@ import Layout from '../layouts/Layout.astro';
     function closeModal() {
       modal.classList.add('hidden');
       document.body.style.overflow = '';
+      formView.classList.remove('hidden');
+      successView.classList.add('hidden');
     }
 
     navBtn.addEventListener('click', openModal);
@@ -199,6 +220,36 @@ import Layout from '../layouts/Layout.astro';
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
         closeModal();
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form)
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          form.reset();
+          formView.classList.add('hidden');
+          successView.classList.remove('hidden');
+          setTimeout(closeModal, 3000);
+        } else {
+          alert('Something went wrong. Please try again.');
+        }
+      } catch (error) {
+        alert('Something went wrong. Please try again.');
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
       }
     });
   </script>

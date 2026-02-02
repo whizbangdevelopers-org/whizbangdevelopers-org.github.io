@@ -2,9 +2,19 @@
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = 'whizBANG Developers - Products and Solutions' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const {
+  title,
+  description = 'Open source and premium developer tools to boost your productivity. Code snippet manager, collaboration tools, and more.',
+  image = '/images/og-image.png'
+} = Astro.props;
+
+const fullTitle = title === 'whizBANG Developers'
+  ? 'whizBANG Developers | Developer Tools That Work'
+  : `${title} | whizBANG Developers`;
 ---
 
 <!doctype html>
@@ -12,10 +22,50 @@ const { title, description = 'whizBANG Developers - Products and Solutions' } = 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
+    <meta name="keywords" content="developer tools, code snippets, Qepton, GitHub Gist, productivity, open source, Nix, NUR, Flake, AI prompts" />
+    <meta name="author" content="whizBANG Developers" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/whizBANG-logo.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:site_name" content="whizBANG Developers" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Structured Data -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "whizBANG Developers",
+      "url": "https://whizbangdevelopers-org.github.io",
+      "logo": "https://whizbangdevelopers-org.github.io/images/whizBANG-logo.png",
+      "description": description,
+      "sameAs": [
+        "https://github.com/whizbangdevelopers-org"
+      ]
+    })} />
+
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
   </head>
   <body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
     <slot />

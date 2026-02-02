@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
     <header class="bg-white shadow-sm">
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div class="flex items-center space-x-2">
-          <span class="text-2xl font-bold text-primary-600">whizBANG</span>
+          <img src="/images/whizBANG-logo.png" alt="whizBANG" class="h-10" />
           <span class="text-2xl font-light text-gray-600">Developers</span>
         </div>
         <div class="flex items-center space-x-6">
@@ -19,10 +19,11 @@ import Layout from '../layouts/Layout.astro';
     </header>
 
     <!-- Hero Section -->
-    <section class="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-50 to-white py-20">
-      <div class="max-w-4xl mx-auto px-4 text-center">
+    <section class="flex-1 flex items-center justify-center py-20 relative bg-cover bg-center" style="background-image: url('/images/hero.jpg');">
+      <div class="absolute inset-0 bg-white/80"></div>
+      <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
         <h1 class="text-5xl font-bold text-gray-900 mb-6">
-          Developer Tools That <span class="text-primary-600">Work</span>
+          Developer and User Tools That <span class="text-primary-600">Work</span>
         </h1>
         <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
           Open source and premium tools to boost your productivity.
@@ -36,20 +37,21 @@ import Layout from '../layouts/Layout.astro';
         <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Our Products</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Qepton Card -->
-          <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
-            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
+          <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow border border-primary-500">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+              <img src="/images/qepton-dark.svg" alt="Qepton" class="h-10" />
+              <span class="text-xl font-light text-gray-600">Free</span>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Qepton</h3>
             <p class="text-gray-600 mb-4">
-              Code snippet manager powered by GitHub Gist. Organize, search, and sync your snippets across devices.
+              AI Prompt and Code snippet manager powered by GitHub Gist. Organize, search, and sync your prompts and snippets across devices.
             </p>
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Open Source</span>
               <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Desktop</span>
               <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">PWA</span>
+              <span class="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded-full">Nix</span>
+              <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">NUR</span>
+              <span class="px-2 py-1 bg-sky-100 text-sky-700 text-xs rounded-full">Flake</span>
             </div>
             <div class="flex space-x-3">
               <a href="https://whizbangdevelopers-org.github.io/Qepton/" class="text-primary-600 hover:text-primary-700 font-medium">
@@ -65,13 +67,11 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <!-- Qepton Premium Card -->
-          <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
-            <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-              </svg>
+          <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow border border-primary-500">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+              <img src="/images/qepton-dark.svg" alt="Qepton" class="h-10" />
+              <span class="text-xl font-light text-amber-600">Premium</span>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Qepton Premium</h3>
             <p class="text-gray-600 mb-4">
               Advanced features for power users. Team collaboration, private gists, and premium plugins.
             </p>
@@ -102,8 +102,8 @@ import Layout from '../layouts/Layout.astro';
     <footer class="bg-gray-900 text-gray-400 py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-4 md:mb-0">
-            <span class="text-xl font-bold text-white">whizBANG</span>
+          <div class="mb-4 md:mb-0 flex items-center space-x-2">
+            <img src="/images/whizBANG-logo.png" alt="whizBANG" class="h-8" />
             <span class="text-xl font-light text-gray-400">Developers</span>
           </div>
           <div class="flex space-x-6">

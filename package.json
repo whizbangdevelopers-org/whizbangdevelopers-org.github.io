@@ -9,13 +9,13 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "stop": "lsof -ti:4321 | xargs kill -9"
-
+    "//": "lsof -ti:4321 | xargs kill -9"
   },
   "dependencies": {
-    "astro": "^5.2.0",
     "@astrojs/check": "^0.9.0",
+    "@astrojs/sitemap": "^3.7.0",
     "@astrojs/tailwind": "^6.0.0",
+    "astro": "^5.2.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.0"
   }

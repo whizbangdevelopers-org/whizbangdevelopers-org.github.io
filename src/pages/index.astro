@@ -14,6 +14,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="flex items-center space-x-6">
           <a href="#products" class="text-gray-600 hover:text-primary-600 transition-colors">Products</a>
           <a href="https://github.com/whizbangdevelopers-org" class="text-gray-600 hover:text-primary-600 transition-colors">GitHub</a>
+          <button id="contact-btn-nav" class="text-gray-600 hover:text-primary-600 transition-colors">Contact</button>
         </div>
       </nav>
     </header>
@@ -108,7 +109,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <div class="flex space-x-6">
             <a href="https://github.com/whizbangdevelopers-org" class="hover:text-white transition-colors">GitHub</a>
-            <a href="mailto:support@whizbangdevelopers.com" class="hover:text-white transition-colors">Contact</a>
+            <button id="contact-btn-footer" class="hover:text-white transition-colors">Contact</button>
           </div>
         </div>
         <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm">
@@ -117,4 +118,88 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </footer>
   </main>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="fixed inset-0 z-50 hidden">
+    <!-- Backdrop -->
+    <div id="modal-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+    <!-- Modal Content -->
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+      <div class="bg-white rounded-xl p-8 shadow-xl max-w-md w-full relative">
+        <!-- Close Button -->
+        <button id="modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Contact Us</h2>
+
+        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+          <input type="hidden" name="access_key" value="b0dcf2c5-ab02-4a4b-a64a-00655a6f31ef" />
+          <input type="hidden" name="subject" value="New contact from whizBANG Developers" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+              <input type="text" id="first-name" name="first-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors" />
+            </div>
+            <div>
+              <label for="family-name" class="block text-sm font-medium text-gray-700 mb-1">Family Name</label>
+              <input type="text" id="family-name" name="family-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors" />
+            </div>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors resize-none"></textarea>
+          </div>
+
+          <div class="h-captcha" data-captcha="true"></div>
+
+          <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline src="https://web3forms.com/client/script.js" async defer></script>
+
+  <script is:inline>
+    const modal = document.getElementById('contact-modal');
+    const closeBtn = document.getElementById('modal-close');
+    const navBtn = document.getElementById('contact-btn-nav');
+    const footerBtn = document.getElementById('contact-btn-footer');
+    const modalContent = modal.querySelector('.bg-white');
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    navBtn.addEventListener('click', openModal);
+    footerBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (!modalContent.contains(e.target)) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  </script>
 </Layout>

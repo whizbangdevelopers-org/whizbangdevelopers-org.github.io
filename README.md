@@ -30,6 +30,31 @@ npm run build     # astro check, then astro build into dist/
 npm run preview   # serve dist/ locally
 ```
 
+## Deploy
+
+The site is published by one script, with no GitHub Actions:
+
+```bash
+bash scripts/publish.sh
+```
+
+GitHub Pages serves the `gh-pages` branch (Settings > Pages: deploy from a branch, `gh-pages`,
+`/`). The script:
+
+1. refuses if the working tree has uncommitted or untracked changes;
+2. refuses unless the running Node's major version matches `.nvmrc`;
+3. exports the committed tree (`git archive HEAD`) to a temporary directory and runs `npm ci`
+   and `npm run build` there, so gitignored files in your working copy never reach the site;
+4. adds an empty `.nojekyll`, so Pages serves the files as built instead of running Jekyll;
+5. commits the build on top of `gh-pages` as a normal commit (never a force push) and pushes it;
+6. confirms the remote branch points at the new commit and prints it.
+
+Pushing to `main` does not deploy anything. Publish after the change you want live is committed
+(and, so its source is on the remote too, pushed). A build identical to what is already on
+`gh-pages` publishes nothing. Each `gh-pages` commit message names the source commit it was built
+from; the Pages build for it shows as "pages build and deployment" in the repository's Actions
+tab, which GitHub runs itself for branch-based Pages.
+
 ## License
 
 All rights reserved.

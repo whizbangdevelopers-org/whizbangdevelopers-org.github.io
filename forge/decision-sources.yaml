@@ -1,0 +1,9 @@
+# Copyright (c) 2026 whizBANG Developers LLC. All rights reserved.
+#
+# This repository's decision home (FORGE-48: business is a fourth decision home, and homes carry
+# sub-values). The site is the organisation's marketing website, so it is filed under business.
+#
+# Read by Gantry's portfolio importer, which files the site's open items under this home. The slug
+# is the one the site's own handoff names; `own_home`'s tail is that slug, not a business function.
+product: wbd-org-site
+own_home: business/wbd-org-site
